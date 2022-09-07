@@ -6,20 +6,19 @@
 \usage{
 coverageDetailplot(orig_data,
                   sim_data,
-                  N_xbin=NULL,
-                  predL=0.5,
-                  conf.level=0.95,
-                  X_name="TIME",
-                  Y_name="DV",
+                  N_xbin = NULL,
+                  predL = 0.5,
+                  conf.level = 0.95,
+                  X_name = "TIME",
+                  Y_name = "DV",
                   MissingDV = NULL,
-                  subject_name="ID",
-                  Kmethod="cluster",                
-                  maxK=NULL,
-                  beta=0.2,
-                  lambda=0.3,
-                  R=4,
-                  C1=2.5,
-                  C2=7.8,...)
+                  Kmethod = "cluster",                
+                  maxK = NULL,
+                  beta = 0.2,
+                  lambda = 0.3,
+                  R = 4,
+                  C1 = 2.5,
+                  C2 = 7.8, ...)
 }
 \arguments{
 \item{orig_data}{A data frame of original data with X and Y variable.}
@@ -37,8 +36,6 @@ coverageDetailplot(orig_data,
 \item{Y_name}{Name of Y variable in orig_data (usually "DV" in pharmacokinetic data)}
 
 \item{MissingDV}{Name of missing indicator variable in orig_data, which have value 1 if missing, value 0 otherwise. (usually "MDV" in pharmacokinetic data).}
-
-\item{subject_name}{Name of subject variable in orig_data (usually "ID" in pharmacokinetic data).}
 
 \item{Kmethod}{The way to calculate the penalty in automatic binning."cluster" or "kernel".}
 
@@ -60,14 +57,15 @@ coverageDetailplot(orig_data,
 the detailed coverage plot
 }
 \description{
-This function draws the detailed coverage plot for 
-the specific prediction level.
+This function draws the detailed coverage plot for the 
+specific prediction level to check over or under estimate regions 
+in each prediction level.
 }
 \examples{
 \donttest{
 data(origdata)
 data(simdata)
-coverageDetailplot(origdata,simdata,predL=0.5)
+coverageDetailplot(origdata,simdata,predL=0.5,N_xbin=8)
 }
 }
 \references{

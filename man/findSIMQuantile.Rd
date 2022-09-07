@@ -2,14 +2,14 @@
 % Please edit documentation in R/Misc.R
 \name{findSIMQuantile}
 \alias{findSIMQuantile}
-\title{find quantiles of the simulated data}
+\title{Find quantiles of the simulated data.}
 \usage{
 findSIMQuantile(sim_data,
                X,
                X_bin,
-               probs=c(0.1,0.5,0.9),
-               conf.level=0.95,
-               approx=FALSE,...)
+               probs = c(0.1,0.5,0.9),
+               conf.level = 0.95,
+               approx = FALSE, ...)
 }
 \arguments{
 \item{sim_data}{A matrix of simulated data with only Y values collected.}
@@ -30,7 +30,7 @@ findSIMQuantile(sim_data,
 quantiles of sim_data using X_bin
 }
 \description{
-find quantiles of the simulated data
+Find quantiles of the simulated data.
 }
 \examples{
 data(origdata)

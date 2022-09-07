@@ -6,30 +6,30 @@
 \usage{
 asVPC(orig_data,
       sim_data,
-      type="CI",                
-      weight_method="bin",                  
-      N_xbin=NULL,
+      type = "CI",                
+      weight_method = "bin",                  
+      N_xbin = NULL,
       N_hist = NULL,
-      probs=c(0.1,0.5,0.9),
-      conf.level=0.95,
-      X_name="TIME",
-      Y_name="DV",
+      probs = c(0.1,0.5,0.9),
+      conf.level = 0.95,
+      X_name = "TIME",
+      Y_name = "DV",
       MissingDV = NULL,
       DV_point = TRUE,                
-      CIvpc_type="line",
-      bin_grid=TRUE,                   
+      CIvpc_type = "line",
+      bin_grid = TRUE,                   
       plot_caption = TRUE,
-      plot_flag=TRUE,
-      linesize=0.7,
-      pointsize=0.7,
-      captionsize=10,
-      Kmethod="cluster",                
-      maxK=NULL,
-      beta=0.2,
-      lambda=0.3,
-      R=4,
-      C1=2.5,
-      C2=7.8,...)
+      plot_flag = TRUE,
+      linesize = 0.7,
+      pointsize = 0.7,
+      captionsize = 10,
+      Kmethod = "cluster",                
+      maxK = NULL,
+      beta = 0.2,
+      lambda = 0.3,
+      R = 4,
+      C1 = 2.5,
+      C2 = 7.8,...)
 }
 \arguments{
 \item{orig_data}{A data frame of original data with X and Y variable.}
@@ -90,15 +90,16 @@ asVPC(orig_data,
 asVPC plot or the values to draw asVPC plot.
 }
 \description{
-This function calculates percentiles of original data  and simulated data 
-using bin-related weights, and draw the VPC type plot
+This function draws the average shifted visual predictive check (asVPC) plot. 
+It calculates percentiles of original data  and simulated data 
+using bin-related weights. Draw the VPC type plot.
 }
 \examples{
 \donttest{
 data(origdata)
 data(simdata)
-asVPC(origdata,simdata,type="CI",N_hist=3,weight_method="distance")
-asVPC(origdata,simdata,type="CI",N_hist=3,weight_method="bin")
+asVPC(origdata,simdata,type="CI",N_hist=3,weight_method="distance",N_xbin=8)
+asVPC(origdata,simdata,type="CI",N_hist=3,weight_method="bin",N_xbin=8)
 }
 
 }

@@ -2,11 +2,11 @@
 % Please edit documentation in R/FindBestCut.R
 \name{FindBestCut}
 \alias{FindBestCut}
-\title{Find the best cutoff values of binning for the visual predictive checks}
+\title{Find the best cutoff values of binning for the visual predictive checks.}
 \usage{
 FindBestCut(X,
             K,
-            beta=0.2,...)
+            beta = 0.2, ...)
 }
 \arguments{
 \item{X}{A numeric vector to divide into K bins.}

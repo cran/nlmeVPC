@@ -6,28 +6,28 @@
 \usage{
 VPCgraph(orig_data,
          sim_data,
-         type="CI",                   
-         N_xbin=NULL,
-         probs=c(0.1,0.5,0.9),
-         conf.level=0.95,
-         X_name="TIME",
-         Y_name="DV",
+         type = "CI",                   
+         N_xbin = NULL,
+         probs = c(0.1,0.5,0.9),
+         conf.level = 0.95,
+         X_name = "TIME",
+         Y_name = "DV",
          MissingDV = NULL,
          DV_point = TRUE,
-         CIvpc_type="line",
-         bin_grid=TRUE,
+         CIvpc_type = "line",
+         bin_grid = TRUE,
          plot_caption = TRUE,
-         plot_flag=TRUE,
-         linesize=0.7,
-         pointsize=0.7,
-         captionsize=10,
-         Kmethod="cluster",                   
-         maxK=NULL,
-         beta=0.2,
-         lambda=0.3,
-         R=4,
-         C1=2.5,
-         C2=7.8,...)
+         plot_flag = TRUE,
+         linesize = 0.7,
+         pointsize = 0.7,
+         captionsize = 10,
+         Kmethod = "cluster",                   
+         maxK = NULL,
+         beta = 0.2,
+         lambda = 0.3,
+         R = 4,
+         C1 = 2.5,
+         C2 = 7.8, ...)
 }
 \arguments{
 \item{orig_data}{A data frame of original data with X and Y variable.}
@@ -84,14 +84,18 @@ VPCgraph(orig_data,
 Visual predictive check plot or the values to draw VPC plot.
 }
 \description{
-This function draws the values to draw the original visual predictive check plot
-which is proposed by Holford & Karlsson (2008).
+This function draws the original visual predictive check plot 
+proposed by Holford & Karlsson (2008). The visual predictive check plot is 
+a graphical comparison of observations and simulated predictions. It 
+compares the distribution of quantiles obtained from the observed data 
+to the distribution of quantiles from simulated data drawn 
+from the fitted model.
 }
 \examples{
 \donttest{
 data(origdata)
 data(simdata)
-VPCgraph(origdata,simdata,type="CI",X_name="TIME",Y_name="DV")
+VPCgraph(origdata,simdata,type="CI",X_name="TIME",Y_name="DV",N_xbin=8)
 }
 }
 \references{

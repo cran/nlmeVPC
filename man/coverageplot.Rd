@@ -6,22 +6,22 @@
 \usage{
 coverageplot(orig_data,
              sim_data,
-             N_xbin=NULL,
-             pred.level=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9),
-             conf.level=0.95,                         
-             X_name="TIME",
-             Y_name="DV",
+             N_xbin = NULL,
+             pred.level = c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9),
+             conf.level = 0.95,                         
+             X_name = "TIME",
+             Y_name = "DV",
              MissingDV = NULL,
-             plot_flag=TRUE,
-             linesize=0.7,
-             pointsize=1.5,
-             Kmethod="cluster",                
-             maxK=NULL,
-             beta=0.2,
-             lambda=0.3,
-             R=4,
-             C1=2.5,
-             C2=7.8,...)
+             plot_flag = TRUE,
+             linesize = 0.7,
+             pointsize = 1.5,
+             Kmethod = "cluster",                
+             maxK = NULL,
+             beta = 0.2,
+             lambda = 0.3,
+             R = 4,
+             C1 = 2.5,
+             C2 = 7.8, ...)
 }
 \arguments{
 \item{orig_data}{A data frame of original data with X and Y variable.}
@@ -66,14 +66,14 @@ coverageplot(orig_data,
 coverage plot
 }
 \description{
-draw the coverage plot that visualize the result 
+Draw the coverage plot that visualizes the result 
 of the numerical predictive checks.
 }
 \examples{
 \donttest{
 data(origdata)
 data(simdata)
-coverageplot(origdata,simdata)
+coverageplot(origdata,simdata,N_xbin=8)
 }
 
 }

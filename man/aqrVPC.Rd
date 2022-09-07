@@ -14,10 +14,10 @@ aqrVPC(orig_data,
        plot_caption = TRUE,
        DV_point = TRUE,
        plot_flag = TRUE,
-       linesize=0.7, 
-       pointsize=0.7, 
-       captionsize=10,
-       qss_lambda=NULL,...)
+       linesize = 0.7, 
+       pointsize = 0.7, 
+       captionsize = 10,
+       qss_lambda = NULL, ...)
 }
 \arguments{
 \item{orig_data}{A data frame of original data with X and Y variable.}
@@ -56,7 +56,8 @@ aqrVPC plot or the values to draw aqrVPC plot.
 }
 \description{
 This function draws the visual predictive check (VPC) plot 
-using additive quantile regression.
+using additive quantile regression. The quantile 
+regression methods are used to calculate quantiles.
 }
 \examples{
  \donttest{

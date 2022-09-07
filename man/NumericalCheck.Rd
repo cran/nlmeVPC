@@ -6,19 +6,19 @@
 \usage{
 NumericalCheck(orig_data,
                sim_data,
-               N_xbin=NULL,
-               pred.level=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9),
-               conf.level=0.95,
-               X_name="TIME",
-               Y_name="DV",
+               N_xbin = NULL,
+               pred.level = c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9),
+               conf.level = 0.95,
+               X_name = "TIME",
+               Y_name = "DV",
                MissingDV = NULL,
-               Kmethod="cluster",                
-               maxK=NULL,
-               beta=0.2,
-               lambda=0.3,
-               R=4,
-               C1=2.5,
-               C2=7.8,...)
+               Kmethod = "cluster",                
+               maxK = NULL,
+               beta = 0.2,
+               lambda = 0.3,
+               R = 4,
+               C1 = 2.5,
+               C2 = 7.8, ...)
 }
 \arguments{
 \item{orig_data}{A data frame of original data with X and Y variable.}
@@ -58,13 +58,17 @@ The result of numerical predictive check
 }
 \description{
 This function calculates the numerical predictive checks for 
-each prediction level.
+each prediction level. For a given level of prediction, 
+the predicted interval is calculated using the simulated data, 
+and the number of observed data below the predicted interval is counted. 
+The expected number of points below the predicted interval 
+is also calculated and compared to the observed number.
 }
 \examples{
 \donttest{
 data(origdata)
 data(simdata)
-NumericalCheck(origdata,simdata)$NPC
+NumericalCheck(origdata,simdata,N_xbin=8)$NPC
 }
 }
 \references{

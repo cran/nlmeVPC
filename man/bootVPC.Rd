@@ -6,25 +6,25 @@
 \usage{
 bootVPC(orig_data,
         sim_data,
-        B=1000,                  
-        N_xbin=NULL,
-        conf.level=0.95,
-        X_name="TIME",
-        Y_name="DV",
-        subject_name="ID",                  
+        B = 1000,                  
+        N_xbin = NULL,
+        conf.level = 0.95,
+        X_name = "TIME",
+        Y_name = "DV",
+        subject_name = "ID",                  
         MissingDV = NULL,
         DV_point = TRUE,                  
         plot_caption = TRUE,                  
-        plot_flag=TRUE,
-        linesize=0.7,
-        pointsize=0.7,
-        Kmethod="cluster",                
-        maxK=NULL,
-        beta=0.2,
-        lambda=0.3,
-        R=4,                
-        C1=2.5,
-        C2=7.8,...)
+        plot_flag = TRUE,
+        linesize = 0.7,
+        pointsize = 0.7,
+        Kmethod = "cluster",                
+        maxK = NULL,
+        beta = 0.2,
+        lambda = 0.3,
+        R = 4,                
+        C1 = 2.5,
+        C2 = 7.8, ...)
 }
 \arguments{
 \item{orig_data}{A data frame of original data with X and Y variable.}
@@ -75,13 +75,16 @@ bootVPC(orig_data,
 bootVPC plot or the values to draw bootVPC plot.
 }
 \description{
-This function draws the visual predictive check plot with bootsraped data
+This function draws the visual predictive check plot with bootstrapped data.
+  It compares
+ the distribution of quantiles obtained from the bootstrapped data to 
+ the distribution of quantiles from simulated data drawn from the fitted model.
 }
 \examples{
 \donttest{
 data(origdata)
 data(simdata)
-bootVPC(origdata,simdata)
+bootVPC(origdata,simdata,N_xbin=8)
 }
 }
 \references{

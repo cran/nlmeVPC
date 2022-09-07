@@ -7,7 +7,7 @@
 makeCOVbin(X,
            K,
            cutoffs,
-           adjust0bin=TRUE,...)
+           adjust0bin = TRUE, ...)
 }
 \arguments{
 \item{X}{A numeric vector corresponding to Y.}
@@ -24,10 +24,10 @@ makeCOVbin(X,
 The result of binning and the summary of the binning results
 }
 \description{
-Discretise numeric data into categorical variable using 
+Discretise numeric value into a categorical variable using  
  the user-defined breaks. If cutoffs and the number of bins (K) are NULL, 
- find the best number of bins using optK function and
- find the best cutoff values using FindBestCut function.
+  find the best number of bins using optK function and find the best 
+  cutoff values using FindBestCut function.
 }
 \examples{
 data(origdata)

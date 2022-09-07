@@ -2,7 +2,7 @@
 % Please edit documentation in R/Misc.R
 \name{findQuantile}
 \alias{findQuantile}
-\title{find quantiles of the original data}
+\title{Find quantiles of the original data.}
 \usage{
 findQuantile(Y,
             X,
@@ -24,7 +24,7 @@ findQuantile(Y,
 quantiles of Y using X_bin
 }
 \description{
-find quantiles of the original data
+Find quantiles of the original data.
 }
 \examples{
 data(origdata)

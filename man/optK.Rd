@@ -5,13 +5,13 @@
 \title{Find the optimal number of bins}
 \usage{
 optK(X,
-     Kmethod="cluster",
-     maxK=NULL,
-     beta=0.2,
-     lambda=0.3,
-     R=4,
-     C1=2.5,
-     C2 = 7.8,...)
+     Kmethod = "cluster",
+     maxK = 10,
+     beta = 0.2,
+     lambda = 0.3,
+     R = 4,
+     C1 = 2.5,
+     C2 = 7.8, ...)
 }
 \arguments{
 \item{X}{Numeric vector corresponding to Y.}

@@ -1,6 +1,7 @@
 #' @title The visual predictive checks using the additive quantile regression (aqrVPC)
 #' @description  This function draws the visual predictive check (VPC) plot 
-#' using additive quantile regression.
+#' using additive quantile regression. The quantile 
+#' regression methods are used to calculate quantiles.
 #' @usage aqrVPC(orig_data, 
 #'        sim_data, 
 #'        probs = c(0.1,0.5,0.9),
@@ -11,10 +12,10 @@
 #'        plot_caption = TRUE,
 #'        DV_point = TRUE,
 #'        plot_flag = TRUE,
-#'        linesize=0.7, 
-#'        pointsize=0.7, 
-#'        captionsize=10,
-#'        qss_lambda=NULL,...)
+#'        linesize = 0.7, 
+#'        pointsize = 0.7, 
+#'        captionsize = 10,
+#'        qss_lambda = NULL, ...)
 #' @param orig_data A data frame of original data with X and Y variable.
 #' @param sim_data A matrix of simulated data with only Y values collected.
 #' @param probs A numeric vector of probabilities.
@@ -39,7 +40,6 @@
 #'              population pharmacometric models. CPT: pharmacometrics & 
 #'              systems pharmacology, 7(10), 678-686.
 #' @import ggplot2 quantreg optimx
-#' @importFrom dplyr filter
 #' @export
 #' @examples
 #'  \donttest{
@@ -58,23 +58,23 @@ aqrVPC <- function(orig_data,
                    plot_caption = TRUE, 
                    DV_point = TRUE,
                    plot_flag = TRUE,
-                   linesize=0.7,
-                   pointsize=0.7,
-                   captionsize=10,
-                   qss_lambda=NULL,...){
+                   linesize = 0.7,
+                   pointsize = 0.7,
+                   captionsize = 10,
+                   qss_lambda = NULL, ...){
   
-   main_title = "Additive Quantile Regression VPC"  
-   G = X = Y = NA
-   lower=upper=mid = NA
-   quantile = LB=UB=Quant=NULL
-   sel.id = !is.na(orig_data[,Y_name]) 
+   main_title <- "Additive Quantile Regression VPC"  
+   G <- X <- Y <- NA
+   lower <- upper <- mid <- NA
+   quantile <- LB <- UB <- Quant <- NULL
+   sel.id <- !is.na(orig_data[,Y_name]) 
    if(!is.null(MissingDV))
-     sel.id = sel.id & orig_data[,MissingDV]==0
-   sim_data = sim_data[sel.id,]  
-   orig_data = orig_data[sel.id,]
-   Lp = (1-conf.level)/2
-   Mp = 0.5
-   Up = 1-Lp
+      sel.id <- sel.id & orig_data[,MissingDV]==0
+   sim_data <- sim_data[sel.id,]  
+   orig_data <- orig_data[sel.id,]
+   Lp <- (1-conf.level)/2
+   Mp <- 0.5
+   Up <- 1 - Lp
    caption <- paste(paste("Percentile=",round(probs[1]*100),"th,",
                           round(probs[2]*100),"th,",
                           round(probs[3]*100),"th",sep=""),"/",
@@ -83,23 +83,25 @@ aqrVPC <- function(orig_data,
       data <- data.frame(X=TIME.data,Y=DV.data)
       orig.rqss.mod <- vector(mode="list",length=length(q))
       for(i in 1:length(q)){
-         orig.rqss.mod[[i]]<-
-                             quantreg::rqss(Y~qss(X,lambda=lambda[i]),
+         orig.rqss.mod[[i]] <- quantreg::rqss(Y~qss(X,lambda=lambda[i]),
                                             data=data,tau=q[i])
       }
-      df <- data.frame(X=data$X)
+      df <- data.frame(X=data$X)      
       p <- sapply(1:length(q),function(i){
-             quantreg::predict.rqss(orig.rqss.mod[[i]],newdata=df)})
-
-      df <- cbind(df,p)
-      colnames(df) <- c("X",paste("Q",round(q*100),"th",sep = ""))
-      df <- df %>% tidyr::gather(key="G",value="Y",2:4)
+        quantreg::predict.rqss(orig.rqss.mod[[i]],newdata=df)})
+      
+      df <- data.frame(X=rep(data$X,3), 
+                       G=rep(paste("Q",round(q*100),"th",sep = ""),
+                             each=nrow(data)),
+                       Y = c(p))
       return(df)
    }
 
    N_sim <- ncol(sim_data)
 
-   plot_data<-data.frame(orig_data,X=orig_data[,X_name],Y=orig_data[,Y_name])
+   plot_data <- data.frame(orig_data,
+                           X=orig_data[,X_name],
+                           Y=orig_data[,Y_name])
 
    model.optim <- function(data,tau,lambda){
       mod.rqss <- rqss(Y~qss(X,lambda=lambda),data=data,tau=tau)
@@ -109,67 +111,84 @@ aqrVPC <- function(orig_data,
    if(is.null(qss_lambda)){
       opt.lambda <- NULL
       for (i in 1:length(probs)){
-         lambda<- stats::optimize(model.optim,c(1,10),
+         lambda <- stats::optimize(model.optim,c(1,10),
                     data=plot_data,tau=probs[i])$minimum
-         opt.lambda[i]<-lambda
+         opt.lambda[i] <- lambda
       }
    } else{
-      opt.lambda = qss_lambda
+      opt.lambda <- qss_lambda
    }
    names(opt.lambda) <- paste("Q",round(probs*100,2),sep="")
 
-   DV_quant =orig.aqr(plot_data$Y,plot_data$X,q=probs,lambda=opt.lambda) %>%
-                dplyr::group_by(G) %>%
-                arrange(G,X) %>%
-                dplyr::filter(!duplicated(X)) %>%
-                dplyr::select(X,Y,G)
-   DV_quant = DV_quant %>% spread(key=G,value=Y,-X) 
-   SIM_quant = orig.aqr(c(unlist(sim_data)),
+   DV_quant <- orig.aqr(plot_data$Y,plot_data$X,q=probs,lambda=opt.lambda)
+   DV_quant$temp <- paste(DV_quant$G,DV_quant$X)
+   DV_quant <- DV_quant[!duplicated(DV_quant$temp),]
+   DV_quant <- DV_quant[order(DV_quant$G,DV_quant$X),c("X","Y","G")]
+   ntemp <- nrow(DV_quant)/3
+   DV_quant <- data.frame(X= DV_quant$X[1:ntemp],
+                           matrix(DV_quant$Y,ncol=3))   
+   colnames(DV_quant)[-1] <- paste("Q",round(probs*100,2),sep="")
+   
+   SIM_quant <- orig.aqr(c(unlist(sim_data)),
                         rep(plot_data$X,N_sim),
-                        q=probs,lambda=opt.lambda)%>%
-                  dplyr::group_by(G) %>%
-                  arrange(G,X) %>%
-                  dplyr::filter(!duplicated(X)) %>%
-                  dplyr::select(X,Y,G)
+                        q=probs,lambda=opt.lambda)
+   SIM_quant$temp <- paste(SIM_quant$G,SIM_quant$X)
+   SIM_quant <- SIM_quant[!duplicated(SIM_quant$temp),]
+   SIM_quant <- SIM_quant[order(SIM_quant$G,SIM_quant$X),c("X","Y","G")]
+   
+   
    sim.Q.temp <- apply(sim_data,2,function(x)
                        orig.aqr(x,plot_data$X,q=probs,lambda=opt.lambda)[,3])
 
-   sim.Q.temp <-array(sim.Q.temp,dim=c(nrow(sim_data),length(probs),N_sim))
+   sim.Q.temp <- array(sim.Q.temp,dim=c(nrow(sim_data),length(probs),N_sim))
 
-   SIM_quant=NULL
-   for(i in 1:length(probs)){
-      temp = data.frame(X=plot_data$X,
-                       quantile=paste("Q",round(probs[i]*100),"th",sep=""),
-           t(apply(sim.Q.temp[,i,],1,function(x)
-                       stats::quantile(x,probs=c(Lp,Mp,Up),na.rm=TRUE))))
-      SIM_quant<-rbind(SIM_quant,temp)
+   N <- nrow(orig_data)
+   P <- length(probs)
+
+   SIM_quant <- data.frame(X=rep(plot_data$X,P),
+                           quantile=paste("Q",round(rep(probs,
+                                     each=N)*100),"th",sep=""),
+                           V1 = rep(NA,N*P),
+                           V2 = rep(NA,N*P),
+                           V3 = rep(NA,N*P))
+                           
+   for(i in 1:P){
+      temp <-   t(apply(sim.Q.temp[,i,],1,function(x)
+                            stats::quantile(x,probs=c(Lp,Mp,Up),na.rm=TRUE)))
+      SIM_quant[(1:N)+(i-1)*N,3:5] <- temp
    }
-   colnames(SIM_quant)[-(1:2)] = paste0(as.character(c(Lp,Mp,Up)*100),"%")
+   colnames(SIM_quant)[-(1:2)] <- paste0(as.character(c(Lp,Mp,Up)*100),"%")
    options(warn=0)
- #####
+
    if(plot_flag){
-      Y_min<-as.numeric(min(c(unlist(DV_quant[,2]),
+      Y_min <- as.numeric(min(c(unlist(DV_quant[,2]),
                             unlist(SIM_quant[,3]),plot_data$Y),na.rm=T))
-      Y_max<-as.numeric(max(c(unlist(DV_quant[,4]),
+      Y_max <- as.numeric(max(c(unlist(DV_quant[,4]),
                             unlist(SIM_quant[,5]),plot_data$Y),na.rm=T))
 
-      Ptemp<-ggplot()+#plot_data,aes(x=X,y=Y))+
+      Ptemp <- ggplot()+ylim(Y_min,Y_max)+
                 theme_bw()+
                 theme(panel.grid.minor = element_blank(),
-                      panel.grid.major=element_blank())+ylim(Y_min,Y_max)
+                      panel.grid.major=element_blank())
   
-      TT=names(table(SIM_quant$quantile))
-      D1 = SIM_quant %>% filter(quantile==TT[1]) %>% 
-        left_join(DV_quant, by = "X") 
-      D1 = D1[,c(1,3:6)]; colnames(D1)[c(2:5)]= c("LB","Mid","UB","Quant")
-      D2 = SIM_quant %>% filter(quantile==TT[2]) %>% 
-        left_join(DV_quant, by = "X") 
-      D2 = D2[,c(1,3:5,7)]; colnames(D2)[c(2:5)]= c("LB","Mid","UB","Quant")
-      D3 = SIM_quant %>% filter(quantile==TT[3]) %>% 
-        left_join(DV_quant, by = "X") 
-      D3 = D3[,c(1,3:5,8)]; colnames(D3)[c(2:5)]= c("LB","Mid","UB","Quant")
+      TT <- sort(unique(SIM_quant$quantile))
+      SIM_quant$ID <- 1:nrow(SIM_quant)
+      D1 <- merge(SIM_quant[SIM_quant$quantile==TT[1],],
+                  DV_quant,by="X",all.x=TRUE,sort = FALSE)
+      D1 <- D1[order(D1$ID),c(1,3:5,7)]; 
+      colnames(D1)[c(2:5)] <- c("LB","Mid","UB","Quant")
+      
+      D2 <- merge(SIM_quant[SIM_quant$quantile==TT[2],],
+                  DV_quant,by="X",all.x=TRUE,sort = FALSE)
+      D2 <- D2[order(D2$ID),c(1,3:5,8)]; 
+      colnames(D2)[c(2:5)] <- c("LB","Mid","UB","Quant")
+      
+      D3 <- merge(SIM_quant[SIM_quant$quantile==TT[3],],
+                  DV_quant,by="X",all.x=TRUE,sort = FALSE)
+      D3 <- D3[order(D3$ID),c(1,3:5,9)];
+      colnames(D3)[c(2:5)] <- c("LB","Mid","UB","Quant")
  
-      Ptemp = Ptemp+
+      Ptemp <- Ptemp+
                 geom_ribbon(data=D1,aes(x=X,ymin=LB,ymax = UB),
                             fill="lightblue",alpha=0.5)+
                 geom_ribbon(data=D3,aes(x=X,ymin=LB,ymax = UB),
@@ -192,17 +211,17 @@ aqrVPC <- function(orig_data,
                      labs(caption=caption) +
                      theme(plot.caption = element_text(size=captionsize))
       } 
-      Ptemp = Ptemp+
+      Ptemp <- Ptemp+
                 theme(panel.grid.major=element_line(colour = "white"),
                       panel.grid.minor=element_line(colour="white"),
                       plot.caption=element_text(hjust=0.5))+
                labs(x=X_name,y=Y_name,title=main_title)
-      print(Ptemp)
+      Ptemp
    } else{
-      DV_point = orig_data[,c(X_name,Y_name)]
-      return(list(DV_point=as_tibble(DV_point),
-                  DV_quant=as_tibble(DV_quant),
-                  SIM_quantCI=as_tibble(SIM_quant)))
+      DV_point <- orig_data[,c(X_name,Y_name)]
+      return(list(DV_point=DV_point,
+                  DV_quant=DV_quant,
+                  SIM_quantCI=SIM_quant))
    }
 }
 
