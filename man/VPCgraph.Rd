@@ -2,7 +2,7 @@
 % Please edit documentation in R/VPCgraph.R
 \name{VPCgraph}
 \alias{VPCgraph}
-\title{the original visual predictive check plot (VPC)}
+\title{The original visual predictive check plot (VPC)}
 \usage{
 VPCgraph(orig_data,
          sim_data,
@@ -86,10 +86,26 @@ Visual predictive check plot or the values to draw VPC plot.
 \description{
 This function draws the original visual predictive check plot 
 proposed by Holford & Karlsson (2008). The visual predictive check plot is 
-a graphical comparison of observations and simulated predictions. It 
-compares the distribution of quantiles obtained from the observed data 
-to the distribution of quantiles from simulated data drawn 
-from the fitted model.
+a graphical comparison of the distribution of observations and simulated data
+from the fitted model. 
+In the "scatter" type of the VPC plot, dots indicate the observed data. 
+Two dashed blue lines and one solid line represent profiles of percentiles 
+of the simulated data. If the fitted model represents the observed data well,
+most observed data are between two dashed blue lines. In the "percentile" 
+type of the VPC plot,  profiles of percentiles from the observed data are 
+compared to profiles of percentiles from the simulated data. Red lines
+represent profiles from the observed data, and blue lines represent 
+profiles from the simulated data. If the fitted model represents the 
+observed data well, two profiles in each percentile - one from the original
+data and the other from the simulated data - are similar. In the "CI" 
+type of the VPC plot, sky blue and pink areas represent the confidence 
+areas of the profile in each percentile. These confidence areas were 
+calculated from the simulated data. In this plot, it is necessary to
+verify that the profiles of the original data are in confidence areas 
+of each profile from the simulated data in each percentile. If each 
+percentile line of the observed data is in the corresponding confidence
+area, this can be evidence that the fitted model represents the observed 
+data quite well. Otherwise, the fitted model needs to be improved.
 }
 \examples{
 \donttest{

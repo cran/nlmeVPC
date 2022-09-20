@@ -23,8 +23,8 @@ The best cutoff values to make K bins using X and
         the minimum within sums of square values for the binning
 }
 \description{
-Find the best cutoff values for a given number of bins by various
-rules.
+By various rules, find the best cutoff values for a given 
+number of bins.
 }
 \examples{
 data(origdata)

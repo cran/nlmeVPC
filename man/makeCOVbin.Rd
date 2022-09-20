@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeCOVbin.R
 \name{makeCOVbin}
 \alias{makeCOVbin}
-\title{Discretise numeric data into categorical variable}
+\title{Discretise numeric data into categorical data}
 \usage{
 makeCOVbin(X,
            K,
@@ -24,10 +24,10 @@ makeCOVbin(X,
 The result of binning and the summary of the binning results
 }
 \description{
-Discretise numeric value into a categorical variable using  
- the user-defined breaks. If cutoffs and the number of bins (K) are NULL, 
-  find the best number of bins using optK function and find the best 
-  cutoff values using FindBestCut function.
+Discretise numeric value into a categorical variable using 
+the user-defined breaks. If cutoffs and the number of bins (K) is NULL, 
+find the best number of bins using the optK function and find the best 
+cutoff values using the FindBestCut function.
 }
 \examples{
 data(origdata)

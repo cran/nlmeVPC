@@ -1,10 +1,10 @@
-#' @title the bootstrap visual predicrive checks. 
+#' @title The bootstrap visual predictive checks. 
 #' @description This function draws the visual predictive check plot with bootstrapped data.
-#'   It compares
-#'  the distribution of quantiles obtained from the bootstrapped data to 
-#'  the distribution of quantiles from simulated data drawn from the fitted model. 
+#'   It compares the distribution of the simulated data to the distribution 
+#'   of the bootstrap samples that draw from the observed data. 
+#'   This plot reflects the uncertainty of the observed data and allows 
+#'   for more objective comparisons with the predicted median.
 #' @import ggplot2 quantreg optimx
-#' @title Visual predictive checks
 #' @usage bootVPC(orig_data,
 #'         sim_data,
 #'         B = 1000,                  

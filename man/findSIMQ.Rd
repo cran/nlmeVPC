@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{findSIMQ}
 \alias{findSIMQ}
-\title{find quantiles of the simulated data using Rcpp}
+\title{Find quantiles of the simulated data using Rcpp}
 \usage{
 findSIMQ(SIM,
         X,
@@ -28,7 +28,7 @@ findSIMQ(SIM,
 quantiles of SIM using xbin
 }
 \description{
-find quantiles of the simulated data using Rcpp
+Find quantiles of the simulated data using Rcpp
 }
 \examples{
 data(origdata)

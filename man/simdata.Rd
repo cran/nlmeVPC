@@ -2,10 +2,10 @@
 \alias{simdata}
 \docType{data}
 \title{
-simulation data
+Simulation data
 }
 \description{
-simulation data from the fitted model of the origdata
+Simulation data from the fitted model of the origdata
 }
 
 \examples{

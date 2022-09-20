@@ -2,7 +2,7 @@
 % Please edit documentation in R/asVPC.R
 \name{asVPC}
 \alias{asVPC}
-\title{the average shifted visual predictive checks (asVPC)}
+\title{The average shifted visual predictive checks (asVPC)}
 \usage{
 asVPC(orig_data,
       sim_data,
@@ -90,9 +90,10 @@ asVPC(orig_data,
 asVPC plot or the values to draw asVPC plot.
 }
 \description{
-This function draws the average shifted visual predictive check (asVPC) plot. 
-It calculates percentiles of original data  and simulated data 
-using bin-related weights. Draw the VPC type plot.
+This function draws the average shifted visual predictive check
+(asVPC) plot. It calculates original and simulated data percentiles using 
+the average shifted histogram method. After calculating percentiles with 
+bin-related or distance-related weights, draw the VPC type plot.
 }
 \examples{
 \donttest{

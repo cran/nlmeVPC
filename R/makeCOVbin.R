@@ -1,8 +1,8 @@
-#' @title Discretise numeric data into categorical variable
-#' @description Discretise numeric value into a categorical variable using  
-#'  the user-defined breaks. If cutoffs and the number of bins (K) are NULL, 
-#'   find the best number of bins using optK function and find the best 
-#'   cutoff values using FindBestCut function. 
+#' @title Discretise numeric data into categorical data
+#' @description Discretise numeric value into a categorical variable using 
+#' the user-defined breaks. If cutoffs and the number of bins (K) is NULL, 
+#' find the best number of bins using the optK function and find the best 
+#' cutoff values using the FindBestCut function.
 #' @usage makeCOVbin(X,
 #'            K,
 #'            cutoffs,

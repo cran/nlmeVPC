@@ -1,6 +1,6 @@
 #' @title  Find the best cutoff values of binning for the visual predictive checks.
-#' @description Find the best cutoff values for a given number of bins by various
-#' rules.
+#' @description By various rules, find the best cutoff values for a given 
+#' number of bins.
 #' @usage FindBestCut(X,
 #'             K,
 #'             beta = 0.2, ...)

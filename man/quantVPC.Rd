@@ -2,7 +2,7 @@
 % Please edit documentation in R/quantVPC.R
 \name{quantVPC}
 \alias{quantVPC}
-\title{the quantified visual predictive check plot (QVPC)}
+\title{The quantified visual predictive check plot (QVPC)}
 \usage{
 quantVPC(orig_data,
          sim_data,
@@ -56,7 +56,7 @@ quantVPC plot
 \description{
 The quantified visual predictive check visually represents 
 actual and unavailable observations around predicted medians, regardless 
-of the density or shape of the observed data distribution,  through the 
+of the density or shape of the observed data distribution, through the 
 form of a percent.
 }
 \examples{

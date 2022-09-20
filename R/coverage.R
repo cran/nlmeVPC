@@ -1,6 +1,11 @@
-#' @title coverage plot
-#' @description Draw the coverage plot that visualizes the result 
-#' of the numerical predictive checks.
+#' @title The coverage plot
+#' @description The coverage plot is developed to help visually check 
+#' the fitted model with the NPC result.
+#' In each level of the predicted interval, the ratios between the expected 
+#' number of points (Exp) outside the prediction interval and the observed 
+#' number of data (Obs) outside the prediction interval are calculated.
+#' These ratios on the upper and lower sides of the prediction interval 
+#' are calculated separately.
 #' @import ggplot2 
 #' @usage coverageplot(orig_data,
 #'              sim_data,

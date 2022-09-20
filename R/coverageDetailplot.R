@@ -1,7 +1,11 @@
-#' @title draw the detailed coverage plot
+#' @title The detailed coverage plot
 #' @description This function draws the detailed coverage plot for the 
 #' specific prediction level to check over or under estimate regions 
-#' in each prediction level. 
+#' in each prediction level. The percentages of observations above the 
+#' prediction interval are calculated in each bin of the independent variable. 
+#' Additionally, the percentages of observations below the prediction interval 
+#' are calculated. The white dots in the plot represent the expected
+#'  percentages. 
 #' @import ggplot2 quantreg optimx
 #' @usage coverageDetailplot(orig_data,
 #'                   sim_data,

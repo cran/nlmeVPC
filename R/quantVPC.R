@@ -1,8 +1,8 @@
-#' @title the quantified visual predictive check plot (QVPC)
+#' @title The quantified visual predictive check plot (QVPC)
 #' @description  The quantified visual predictive check visually represents 
 #' actual and unavailable observations around predicted medians, regardless 
-#' of the density or shape of the observed data distribution,  through the 
-#' form of a percent. 
+#' of the density or shape of the observed data distribution, through the 
+#' form of a percent.
 #' @import ggplot2 quantreg optimx
 #' @usage quantVPC(orig_data,
 #'          sim_data,

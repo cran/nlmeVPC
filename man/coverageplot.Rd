@@ -2,7 +2,7 @@
 % Please edit documentation in R/coverage.R
 \name{coverageplot}
 \alias{coverageplot}
-\title{coverage plot}
+\title{The coverage plot}
 \usage{
 coverageplot(orig_data,
              sim_data,
@@ -66,8 +66,13 @@ coverageplot(orig_data,
 coverage plot
 }
 \description{
-Draw the coverage plot that visualizes the result 
-of the numerical predictive checks.
+The coverage plot is developed to help visually check 
+the fitted model with the NPC result.
+In each level of the predicted interval, the ratios between the expected 
+number of points (Exp) outside the prediction interval and the observed 
+number of data (Obs) outside the prediction interval are calculated.
+These ratios on the upper and lower sides of the prediction interval 
+are calculated separately.
 }
 \examples{
 \donttest{

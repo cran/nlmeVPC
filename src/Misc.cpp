@@ -12,7 +12,7 @@ using namespace arma;
 
 
 
-//' @title find quantiles of the simulated data using Rcpp
+//' @title Find quantiles of the simulated data using Rcpp
 //' @usage findSIMQ(SIM,
 //'         X,
 //'         Xbin,
