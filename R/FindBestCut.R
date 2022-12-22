@@ -26,7 +26,7 @@ FindBestCut <- function(X,
                         beta = 0.2, ...){
   origX <- X 
   X_n <- table(X)
-  X <- sort(as.numeric(names(X_n)))
+  X <- sort(unique(X))
   
   N <- length(X)
   if(N<=K){

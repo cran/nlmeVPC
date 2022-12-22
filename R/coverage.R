@@ -80,10 +80,6 @@ coverageplot <- function(orig_data,
       sel.id <- sel.id & orig_data[,MissingDV]==0
    sim_data <- sim_data[sel.id,]  
    orig_data <- orig_data[sel.id,]
-  
-   PI <- PBp <- prob <- PAp <- BF <- BT <- AF <- AT <- NA
-   L <- U <- Ratio <- NA
-   RatioLower <- RatioUpper <- G <- LLower <- LUpper <- ULower <- UUpper <- NA
 
    if(is.null(N_xbin))
       N_xbin <- optK(orig_data[,X_name],...)$K

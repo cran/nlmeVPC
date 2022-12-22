@@ -20,7 +20,7 @@ findQuantile <-function(Y,
                         X,
                         X_bin,
                         probs = c(0.1,0.5,0.9), ...){
-      Xbin <- NULL 
+
       dataT <- data.frame(X,Y,Xbin=X_bin$COV_bin)
       temp <- matrix(0,ncol=length(probs),nrow=nrow(X_bin$COVbin_summary))
       for(i in 1:length(probs)){

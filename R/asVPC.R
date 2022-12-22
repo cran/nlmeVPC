@@ -98,9 +98,7 @@ asVPC <- function(orig_data,
    
    main_title <- paste0("average shifted VPC : ",
                         weight_method,"-related weights")
-   lower <- upper <- NA
-   quantile <- mid_COV <- LB <- UB <- X <- Y <- Quant <- Mid <- NULL
-   cut_temp <- mid_LU <- X_bin <- X_mid <- NULL     
+
    sel.id <- !is.na(orig_data[,Y_name]) 
    if(!is.null(MissingDV))
       sel.id <- sel.id & orig_data[,MissingDV]==0
@@ -109,7 +107,7 @@ asVPC <- function(orig_data,
    plot_data <- data.frame(X=orig_data[,X_name],Y=orig_data[,Y_name])
    approxi <- FALSE
    if(!is.null(N_xbin))
-      approxi <- ifelse(N_xbin >= length(table(plot_data$X)) |
+      approxi <- ifelse(N_xbin >= length(unique(plot_data$X)) |
                         min(table(plot_data$X)<5),TRUE,FALSE)
 
    if(type=="scatter"){
@@ -134,11 +132,11 @@ asVPC <- function(orig_data,
    }
 
    if(is.null(N_hist))
-     N_hist <- ifelse(N_xbin==length(table(orig_data[,X_name])),
+     N_hist <- ifelse(N_xbin==length(unique(orig_data[,X_name])),
                     2,round(N_xbin/2))
 
    bintot.N <- N_xbin*N_hist
-   timebin_flag <- bintot.N < length(table(plot_data$X))
+   timebin_flag <- bintot.N < length(unique(plot_data$X))
    if(timebin_flag){
       CUTtemp <- c(min(plot_data$X),
                   FindBestCut(plot_data$X,K=N_xbin,...)$cutoffs,

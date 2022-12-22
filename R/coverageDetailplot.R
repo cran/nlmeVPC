@@ -67,9 +67,7 @@ coverageDetailplot <- function(orig_data,
                    R = 4,
                    C1 = 2.5,
                    C2 = 7.8, ...){
-   
-   belowPI <- abovePI <- Lower <- Upper <- cut_temp <- NA
-   Middle <- type <- percent <- LE <- UE <- NA
+
    main_title <- paste("Coverage Detailed plot : PI = ",predL*100)
    probs <- c((1-predL)/2,1-(1-predL)/2)
    pred.level <- predL

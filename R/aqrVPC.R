@@ -64,9 +64,6 @@ aqrVPC <- function(orig_data,
                    qss_lambda = NULL, ...){
   
    main_title <- "Additive Quantile Regression VPC"  
-   G <- X <- Y <- NA
-   lower <- upper <- mid <- NA
-   quantile <- LB <- UB <- Quant <- NULL
    sel.id <- !is.na(orig_data[,Y_name]) 
    if(!is.null(MissingDV))
       sel.id <- sel.id & orig_data[,MissingDV]==0
@@ -153,7 +150,7 @@ aqrVPC <- function(orig_data,
                            V3 = rep(NA,N*P))
                            
    for(i in 1:P){
-      temp <-   t(apply(sim.Q.temp[,i,],1,function(x)
+      temp <- t(apply(sim.Q.temp[,i,],1,function(x)
                             stats::quantile(x,probs=c(Lp,Mp,Up),na.rm=TRUE)))
       SIM_quant[(1:N)+(i-1)*N,3:5] <- temp
    }

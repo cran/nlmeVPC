@@ -40,10 +40,9 @@ optK <- function(X,
                  C1 = 2.5,
                  C2 = 7.8, ...){
 
-   var <- NA
    X <- X[!is.na(X)]
    N <- length(X)
-   maxK <- min(c(maxK,round(length(X)/10),length(table(X))))
+   maxK <- min(c(maxK,round(length(X)/10),length(unique(X))))
    keep.tot <- matrix(0,ncol=3,nrow=(maxK-2))
    for(k in 3:maxK){
       bestCUT <- FindBestCut(X,k,...)

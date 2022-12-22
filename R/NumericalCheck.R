@@ -65,28 +65,19 @@ NumericalCheck <- function(orig_data,
                            C1 = 2.5,
                            C2 = 7.8, ...){
 
-   Y <- LB <- UB <- belowPIflag <- abovePIflag <- NA
-   n <- belowE <- aboveE <- belowPI <- abovePI <- NA
-   belowPI_L <- belowPI_U<-abovePI_L <- abovePI_U <- NA
-   PI <- belowPI_p <- abovePI_p <- cut_temp<-NA
-   quantile<-value<-NA
    sel.id <- !is.na(orig_data[,Y_name]) 
    if(!is.null(MissingDV))
       sel.id <- sel.id & orig_data[,MissingDV]==0
    sim_data <- sim_data[sel.id,]  
    orig_data <- orig_data[sel.id,]
    
-   DV_quant <- NULL
-   SIM_quant <- NULL
-   temp_simCI <- NULL
-   ID<-NULL;G <- NULL
    N_sim <- ncol(sim_data)
    if(is.null(N_xbin))
       N_xbin <- optK(orig_data[,X_name],...)$K
    
    plot_data <- data.frame(X=orig_data[,X_name],Y=orig_data[,Y_name])
 
-   if(N_xbin < length(table(plot_data$X))){
+   if(N_xbin < length(unique(plot_data$X))){
       CUT <- FindBestCut(plot_data$X,K=N_xbin,...)$cutoffs
       time_bin <- makeCOVbin(plot_data$X,N_xbin,cutoffs=CUT,...)
    } else{
@@ -102,14 +93,20 @@ NumericalCheck <- function(orig_data,
 
    plot_data <- data.frame(plot_data, cut_temp = time_bin$COV_bin,
                            tempID = 1:nrow(plot_data))
-   keepAll <- NULL
+   keepAll <- matrix(0,nrow=length(pred.level),ncol=9)
    probkeep <- NULL
-   keepAll2 <- NULL
-   CIkeep <- data.frame(X_bin=time_bin$COVbin_summary$cut_temp)
+   keepAll2 <- data.frame(belowPI = rep(0,length(pred.level)*N_xbin),
+                          abovePI =rep(0,length(pred.level)*N_xbin),
+                          n = rep(0,length(pred.level)*N_xbin),
+                          pred.level =rep(0,length(pred.level)*N_xbin),
+                          belowE = rep(0,length(pred.level)*N_xbin),
+                          aboveE = rep(0,length(pred.level)*N_xbin),
+                          cut_temp = rep("0",length(pred.level)*N_xbin))
+   CIkeep <- matrix(0,nrow=N_xbin,ncol=2*length(pred.level))
+
    for(i in 1:length(pred.level)){
       probs <- c((1-pred.level[i])/2,1-(1-pred.level[i])/2)
       probkeep <- c(probkeep,probs)
-      
       simAll <- data.frame(TIME =rep(plot_data$X,ncol(sim_data)),
                           DV = c(sim_data),
                           cut_temp = rep(time_bin$COV_bin,ncol(sim_data)))
@@ -124,10 +121,6 @@ NumericalCheck <- function(orig_data,
        
       temp_data$belowPIflag <- temp_data$Y<temp_data$LB
       temp_data$abovePIflag <- temp_data$Y>temp_data$UB
-#      temp_data$belowPIflag <- as.numeric(temp_data$Y<temp_data$LB)+
-#        0.5*as.numeric(temp_data$Y==temp_data$LB)
-#      temp_data$abovePIflag <- as.numeric(temp_data$Y>temp_data$UB)+
-#        0.5*as.numeric(temp_data$Y==temp_data$UB)        
       temp1 <- data.frame(belowPI = tapply(temp_data$belowPIflag,
                                           temp_data$cut_temp,sum),
                           abovePI = tapply(temp_data$abovePIflag,
@@ -138,43 +131,47 @@ NumericalCheck <- function(orig_data,
       temp1$belowE <- temp1$n*(1-temp1$pred.level)/2
       temp1$aboveE <-temp1$belowE
       temp1$cut_temp <- rownames(temp1)
-      
-      keepAll2 <- rbind(keepAll2, temp1)
+      keepAll2$belowPI[((i-1)*N_xbin+1):(i*N_xbin)] <- temp1$belowPI
+      keepAll2$abovePI[((i-1)*N_xbin+1):(i*N_xbin)] <- temp1$abovePI
+      keepAll2$n[((i-1)*N_xbin+1):(i*N_xbin)] <- temp1$n
+      keepAll2$pred.level[((i-1)*N_xbin+1):(i*N_xbin)] <- temp1$pred.level
+      keepAll2$belowE[((i-1)*N_xbin+1):(i*N_xbin)] <- temp1$belowE
+      keepAll2$aboveE[((i-1)*N_xbin+1):(i*N_xbin)] <- temp1$aboveE
+      keepAll2$cut_temp[((i-1)*N_xbin+1):(i*N_xbin)] <- temp1$cut_temp
       temp1 <- apply(temp1[,c(3,5,6,1,2)],2,sum)
 
       tempAll <- t(apply(sim_data,2,
                         function(x) return(c(sum(x<temp_data$LB),
                                              sum(x>temp_data$UB)))))
-#      tempAll <- t(apply(sim_data,2,
-#                         function(x) return(c(sum(x<temp_data$LB)+
-#                                                   sum(x==temp_data$LB)/2,
-#                                              sum(x>temp_data$UB)+
-#                                                   sum(x==temp_data$UB)/2))))
-      
-            temp2 <- c(apply(tempAll,2,
+      temp2 <- c(apply(tempAll,2,
                     function(x) stats::quantile(x,
                                     probs=c((1-conf.level)/2,
                                             1-(1-conf.level)/2))))
       names(temp2)<- c("belowPI_L","belowPI_U","abovePI_L","abovePI_U")
-      keepAll <- rbind(keepAll,c(temp1,temp2))
+      keepAll[i,] <- c(temp1,temp2)
       colnames(temp_simQ)[2:3] <- paste0(as.character(pred.level[i]*100),
                                         "%",colnames(temp_simQ)[2:3])
-      CIkeep <- cbind(CIkeep,temp_simQ[,2:3])
+  
+      CIkeep[,(2*i-1)] <- temp_simQ[,2]
+      CIkeep[,2*i] <- temp_simQ[,3]      
    }
-    keepAll <- data.frame(keepAll)
-    n <- keepAll$n[1]
-    NPC <- data.frame(PI = pred.level*100,
-                      n = keepAll$n,
-                      belowE = keepAll$belowE,
-                      belowPI = keepAll$belowPI,
-                      belowPI_p = keepAll$belowPI/n*100,
-                      belowPI_L = keepAll$belowPI_L/n*100,
-                      belowPI_U = keepAll$belowPI_U/n*100,
-                      aboveE = keepAll$aboveE,
-                      abovePI = keepAll$abovePI,
-                      abovePI_p = keepAll$abovePI/n*100,
-                      abovePI_L = keepAll$abovePI_L/n*100,
-                      abovePI_U = keepAll$abovePI_U/n*100)
+   CIkeep <- data.frame(X_bin=time_bin$COVbin_summary$cut_temp,CIkeep)
+   colnames(keepAll) <- c("n","belowE","aboveE","belowPI","abovePI",
+                        "belowPI_L","belowPI_U","abovePI_L","abovePI_U")
+   keepAll <- data.frame(keepAll)
+   n <- keepAll$n[1]
+   NPC <- data.frame(PI = pred.level*100,
+                     n = keepAll$n,
+                     belowE = keepAll$belowE,
+                     belowPI = keepAll$belowPI,
+                     belowPI_p = keepAll$belowPI/n*100,
+                     belowPI_L = keepAll$belowPI_L/n*100,
+                     belowPI_U = keepAll$belowPI_U/n*100,
+                     aboveE = keepAll$aboveE,
+                     abovePI = keepAll$abovePI,
+                     abovePI_p = keepAll$abovePI/n*100,
+                     abovePI_L = keepAll$abovePI_L/n*100,
+                     abovePI_U = keepAll$abovePI_U/n*100)
 
    colnames(NPC) <- c("PI","n",
                       "Expected points below PI",

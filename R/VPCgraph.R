@@ -112,9 +112,6 @@ VPCgraph <- function(orig_data,
    
    
    main_title <- "Visual Predictive Check"   
-   lower <- upper <- NA
-   quantile<- mid_COV <- LB <- UB <- X <- Y <- Quant <- Mid <- NULL
-   cut_temp <- mid_LU <- X_bin <- X_mid<-NULL
    sel.id <- !is.na(orig_data[,Y_name]) 
    if(!is.null(MissingDV))
       sel.id <- sel.id & orig_data[,MissingDV]==0
@@ -128,7 +125,7 @@ VPCgraph <- function(orig_data,
       time_bin <- optK_t$time_bin     
       N_xbin <- optK_t$K
    } else{
-     if(N_xbin < length(table(plot_data$X))){
+     if(N_xbin < length(unique(plot_data$X))){
         CUT <- FindBestCut(plot_data$X,K=N_xbin,...)$cutoffs
         time_bin <- makeCOVbin(plot_data$X,K=N_xbin,cutoffs=CUT,...)
      } else{
@@ -140,7 +137,7 @@ VPCgraph <- function(orig_data,
      }
    }   
    
-   approxi <- ifelse(N_xbin >= length(table(plot_data$X)),TRUE,FALSE)   
+   approxi <- ifelse(N_xbin >= length(unique(plot_data$X)),TRUE,FALSE)   
    if(type=="scatter"){
       DV_qline <- FALSE; SIM_qline <- TRUE; SIM_qCI <- FALSE;
    } else if(type=="percentile"){

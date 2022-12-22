@@ -83,7 +83,6 @@ bootVPC <- function(orig_data,
                     C1 = 2.5,
                     C2 = 7.8, ...){
    main_title <- "Bootstrap VPC"
-   quantile <- `50%` <- cut_temp <- mid_LU <- X <- Y <- LB <- UB <- Mid <- NULL
    sel.id <- !is.na(orig_data[,Y_name]) 
    if(!is.null(MissingDV))
      sel.id <- sel.id & orig_data[,MissingDV]==0

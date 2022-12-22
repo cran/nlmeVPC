@@ -62,7 +62,6 @@ quantVPC<-function(orig_data,
                    C2 = 7.8, ...){
   
    main_title <- "Quantified VPC"
-   unavailable <- TIME <- percent <- type <- NA
    sel.id <- !is.na(orig_data[,Y_name]) 
    if(!is.null(MissingDV))
      sel.id <- sel.id & orig_data[,MissingDV]==0

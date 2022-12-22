@@ -1,7 +1,7 @@
 Package: nlmeVPC
 Title: Visual Model Checking for Nonlinear Mixed Effect Model
-Version: 2.5
-Date: 2022-09-20
+Version: 2.6
+Date: 2022-12-22
 Authors@R: 
     c(person(given = "Eun-Kyung",
            family = "Lee",
@@ -17,11 +17,11 @@ Suggests: testit
 LinkingTo: Rcpp, RcppArmadillo
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 NeedsCompilation: yes
-Packaged: 2022-09-20 09:05:41 UTC; EKLee
+Packaged: 2022-12-22 04:58:36 UTC; EKLee
 Author: Eun-Kyung Lee [aut, cre],
   Eun-Hwa Kang [aut]
 Maintainer: Eun-Kyung Lee <lee.eunk@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-09-20 10:06:10 UTC
+Date/Publication: 2022-12-22 05:20:02 UTC
