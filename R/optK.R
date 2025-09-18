@@ -26,10 +26,9 @@
 #'                     Journal of pharmacokinetics and pharmacodynamics, 38(6), 861-871.
 #' @export
 #' @examples
-#' \donttest{
 #' data(origdata)
 #' optK(origdata$TIME)
-#' }
+
 
 optK <- function(X,
                  Kmethod = "cluster",
@@ -69,16 +68,16 @@ optK <- function(X,
        KBratio <- ifelse(Kopt==0,0,BWratio/Kopt)
        Jopt <- ifelse(bestCUT$WSS==0,0,log(bestCUT$WSS))+lambda*beta*k
      } else{
-        Jopt <- KBratio <- 0
+       Jopt <- KBratio <- 0
      }
      keep.tot[k-2,] <- c(k,Jopt,KBratio)
    }
    colnames(keep.tot) <- c("k","Jopt","KBratio")
    keep.tot <- data.frame(keep.tot)
    if(Kmethod=="cluster"){
-      K <- min(keep.tot$k[which(keep.tot$Jopt==min(keep.tot$Jopt,na.rm=TRUE))])
+     K <- min(keep.tot$k[which(keep.tot$Jopt==min(keep.tot$Jopt,na.rm=TRUE))])
    } else if(Kmethod=="kernel"){
-      K <- min(keep.tot$k[which(keep.tot$KBratio==
+     K <- min(keep.tot$k[which(keep.tot$KBratio==
                                   min(keep.tot$KBratio,na.rm=TRUE))])      
    }
    CUT <- FindBestCut(X,K,...)$cutoffs

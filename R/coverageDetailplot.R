@@ -46,11 +46,9 @@
 #' 35(2), 185-202
 #' @export
 #' @examples
-#' \donttest{
 #' data(origdata)
 #' data(simdata)
-#' coverageDetailplot(origdata,simdata,predL=0.5,N_xbin=8)
-#' }
+#' #coverageDetailplot(origdata,simdata,predL=0.5,N_xbin=8)
 
 coverageDetailplot <- function(orig_data,
                    sim_data,

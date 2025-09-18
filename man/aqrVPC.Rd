@@ -60,11 +60,9 @@ using additive quantile regression. The quantile
 regression methods are used to calculate quantiles.
 }
 \examples{
- \donttest{
 data(origdata)
 data(simdata)
-aqrVPC(origdata,simdata)
-}
+#aqrVPC(origdata,simdata)
 }
 \references{
 Koenker, Roger, and Kevin F. Hallock. "Quantile regression." 

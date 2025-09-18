@@ -75,12 +75,9 @@ These ratios on the upper and lower sides of the prediction interval
 are calculated separately.
 }
 \examples{
-\donttest{
 data(origdata)
 data(simdata)
-coverageplot(origdata,simdata,N_xbin=8)
-}
-
+#coverageplot(origdata,simdata,N_xbin=8)
 }
 \references{
 Holford N, & Karlsson M. (2008). "A tutorial on visual predictive checks,

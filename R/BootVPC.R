@@ -55,11 +55,10 @@
 #' 35(2), 185-202
 #' @export
 #' @examples
-#' \donttest{
 #' data(origdata)
 #' data(simdata)
-#' bootVPC(origdata,simdata,N_xbin=8)
-#' }
+#' #bootVPC(origdata,simdata,N_xbin=8)
+
 
 bootVPC <- function(orig_data,
                     sim_data,

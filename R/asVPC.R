@@ -62,13 +62,11 @@
 #' @return asVPC plot or the values to draw asVPC plot.
 #' @export
 #' @examples
-#' \donttest{
 #' data(origdata)
 #' data(simdata)
-#' asVPC(origdata,simdata,type="CI",N_hist=3,weight_method="distance",N_xbin=8)
-#' asVPC(origdata,simdata,type="CI",N_hist=3,weight_method="bin",N_xbin=8)
-#' }
-#' 
+#' #asVPC(origdata,simdata,type="CI",N_hist=3,weight_method="distance",N_xbin=8)
+#' #asVPC(origdata,simdata,type="CI",N_hist=3,weight_method="bin",N_xbin=8)
+
 asVPC <- function(orig_data,
                   sim_data,
                   type = "CI",                

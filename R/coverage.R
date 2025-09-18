@@ -49,12 +49,10 @@
 #'  abstr 1434." Annual Meeting of the Populations Approach Group in Europe. www.page-meeting.org. 2008.
 #' @export
 #' @examples
-#' \donttest{
 #' data(origdata)
 #' data(simdata)
-#' coverageplot(origdata,simdata,N_xbin=8)
-#' }
-#'
+#' #coverageplot(origdata,simdata,N_xbin=8)
+
 
 coverageplot <- function(orig_data,
                          sim_data,
@@ -112,9 +110,9 @@ coverageplot <- function(orig_data,
      if(sum(PI.temp$COLOR=="red")!=0)
        PlotP <- PlotP+geom_point(data = PI.temp[PI.temp$COLOR=="red",],
                                 col="red", size = pointsize+1)
-     PlotP
-   } else{
-      NPCtemp <- data.frame(PI = NPC$PI,
+       PlotP
+   }else{
+     NPCtemp <- data.frame(PI = NPC$PI,
                             prob = (100-NPC$PI)/2,
                             RatioLower=NPC$PBp*2/(100-NPC$PI),
                             RatioUpper=NPC$PAp*2/(100-NPC$PI),
@@ -122,7 +120,7 @@ coverageplot <- function(orig_data,
                             ULower=NPC$BT*2/(100-NPC$PI),
                             LUpper=NPC$AF*2/(100-NPC$PI),
                             UUpper=NPC$AT*2/(100-NPC$PI))
-      colnames(NPCtemp) <- c("PI","Lower",
+     colnames(NPCtemp) <- c("PI","Lower",
                             paste0("Lower",round(conf.level*100),"%CI_LB"),
                             paste0("Lower",round(conf.level*100),"%CI_UB"),
                             "Upper",

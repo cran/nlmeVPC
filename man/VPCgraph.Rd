@@ -108,11 +108,9 @@ area, this can be evidence that the fitted model represents the observed
 data quite well. Otherwise, the fitted model needs to be improved.
 }
 \examples{
-\donttest{
 data(origdata)
 data(simdata)
-VPCgraph(origdata,simdata,type="CI",X_name="TIME",Y_name="DV",N_xbin=8)
-}
+#VPCgraph(origdata,simdata,type="CI",X_name="TIME",Y_name="DV",N_xbin=8)
 }
 \references{
 Holford N, & Karlsson M. (2008). "A tutorial on visual predictive checks,

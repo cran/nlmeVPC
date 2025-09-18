@@ -42,11 +42,10 @@
 #' @import ggplot2 quantreg optimx
 #' @export
 #' @examples
-#'  \donttest{
 #' data(origdata)
 #' data(simdata)
-#' aqrVPC(origdata,simdata)
-#' }
+#' #aqrVPC(origdata,simdata)
+
 
 aqrVPC <- function(orig_data,
                    sim_data,

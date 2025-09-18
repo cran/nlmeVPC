@@ -43,11 +43,9 @@
 #' @references https://github.com/UUPharmacometrics/PsN/releases/download/4.9.0/vpc_npc_userguide.pdf.
 #' @export
 #' @examples
-#' \donttest{
 #' data(origdata)
 #' data(simdata)
 #' NumericalCheck(origdata,simdata,N_xbin=8)$NPC
-#' }
 
 NumericalCheck <- function(orig_data,
                            sim_data,
@@ -94,7 +92,6 @@ NumericalCheck <- function(orig_data,
    plot_data <- data.frame(plot_data, cut_temp = time_bin$COV_bin,
                            tempID = 1:nrow(plot_data))
    keepAll <- matrix(0,nrow=length(pred.level),ncol=9)
-   probkeep <- NULL
    keepAll2 <- data.frame(belowPI = rep(0,length(pred.level)*N_xbin),
                           abovePI =rep(0,length(pred.level)*N_xbin),
                           n = rep(0,length(pred.level)*N_xbin),
@@ -106,7 +103,6 @@ NumericalCheck <- function(orig_data,
 
    for(i in 1:length(pred.level)){
       probs <- c((1-pred.level[i])/2,1-(1-pred.level[i])/2)
-      probkeep <- c(probkeep,probs)
       simAll <- data.frame(TIME =rep(plot_data$X,ncol(sim_data)),
                           DV = c(sim_data),
                           cut_temp = rep(time_bin$COV_bin,ncol(sim_data)))

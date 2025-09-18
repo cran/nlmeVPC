@@ -66,11 +66,9 @@ are calculated. The white dots in the plot represent the expected
  percentages.
 }
 \examples{
-\donttest{
 data(origdata)
 data(simdata)
-coverageDetailplot(origdata,simdata,predL=0.5,N_xbin=8)
-}
+#coverageDetailplot(origdata,simdata,predL=0.5,N_xbin=8)
 }
 \references{
 Post, T. M., et al. (2008)

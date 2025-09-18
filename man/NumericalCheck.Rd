@@ -65,11 +65,9 @@ The expected number of points below the predicted interval
 is also calculated and compared to the observed number.
 }
 \examples{
-\donttest{
 data(origdata)
 data(simdata)
 NumericalCheck(origdata,simdata,N_xbin=8)$NPC
-}
 }
 \references{
 Holford N, & Karlsson M. (2008). "A tutorial on visual predictive checks,

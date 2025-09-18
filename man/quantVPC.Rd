@@ -60,11 +60,9 @@ of the density or shape of the observed data distribution, through the
 form of a percent.
 }
 \examples{
-\donttest{
 data(origdata)
 data(simdata)
-quantVPC(origdata,simdata,prob=0.5,N_xbin=8)
-}
+#quantVPC(origdata,simdata,prob=0.5,N_xbin=8)
 }
 \references{
 Post, T.M., et al. (2008)

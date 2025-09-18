@@ -77,13 +77,11 @@
 #' @references https://github.com/UUPharmacometrics/PsN/releases/download/4.9.0/vpc_npc_userguide.pdf.
 #' @export
 #' @examples
-#' \donttest{
 #' data(origdata)
 #' data(simdata)
-#' VPCgraph(origdata,simdata,type="CI",X_name="TIME",Y_name="DV",N_xbin=8)
-#' }
+#' #VPCgraph(origdata,simdata,type="CI",X_name="TIME",Y_name="DV",N_xbin=8)
 
-# VPC graph ----------------------------------------------------------------
+
 
 VPCgraph <- function(orig_data,
                      sim_data,

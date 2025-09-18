@@ -41,10 +41,8 @@ The optimal number of bins, the result of binning, and the summary of
 This function automatically finds the optimal number of bins using dynamic programming.
 }
 \examples{
-\donttest{
 data(origdata)
 optK(origdata$TIME)
-}
 }
 \references{
 Lavielle, M. and Bleakley, K.

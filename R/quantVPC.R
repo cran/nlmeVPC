@@ -40,11 +40,10 @@
 #' 35(2), 185-202
 #' @export
 #' @examples
-#' \donttest{
 #' data(origdata)
 #' data(simdata)
-#' quantVPC(origdata,simdata,prob=0.5,N_xbin=8)
-#' }
+#' #quantVPC(origdata,simdata,prob=0.5,N_xbin=8)
+
 
 quantVPC<-function(orig_data,
                    sim_data,

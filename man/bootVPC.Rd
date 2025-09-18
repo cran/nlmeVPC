@@ -82,11 +82,9 @@ This function draws the visual predictive check plot with bootstrapped data.
   for more objective comparisons with the predicted median.
 }
 \examples{
-\donttest{
 data(origdata)
 data(simdata)
-bootVPC(origdata,simdata,N_xbin=8)
-}
+#bootVPC(origdata,simdata,N_xbin=8)
 }
 \references{
 Post, T. M., et al. (2008)

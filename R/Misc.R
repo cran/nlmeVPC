@@ -21,19 +21,19 @@ findQuantile <-function(Y,
                         X_bin,
                         probs = c(0.1,0.5,0.9), ...){
 
-      dataT <- data.frame(X,Y,Xbin=X_bin$COV_bin)
-      temp <- matrix(0,ncol=length(probs),nrow=nrow(X_bin$COVbin_summary))
-      for(i in 1:length(probs)){
-        temp[,i] <- tapply(dataT$Y,dataT$Xbin,
-                           function(x) stats::quantile(x,prob=probs[i],
-                                                na.rm=TRUE,names=FALSE))
-      }
-      nameT <- strsplit(rapply(list(probs),sprintf,
+   dataT <- data.frame(X,Y,Xbin=X_bin$COV_bin)
+   temp <- matrix(0,ncol=length(probs),nrow=nrow(X_bin$COVbin_summary))
+   for(i in 1:length(probs)){
+     temp[,i] <- tapply(dataT$Y,dataT$Xbin,
+                        function(x) stats::quantile(x,prob=probs[i],
+                                             na.rm=TRUE,names=FALSE))
+   }
+   nameT <- strsplit(rapply(list(probs),sprintf,
                               fmt="%.2f",how="replace")[[1]],"\\.")
-      nameT <- unlist(lapply(nameT,function(x) x[2]))
-      colnames(temp) <- paste0("Q",nameT,"th")
-      DV_q <- data.frame(X_bin$COVbin_summary,temp)
-      return(DV_q)
+   nameT <- unlist(lapply(nameT,function(x) x[2]))
+   colnames(temp) <- paste0("Q",nameT,"th")
+   DV_q <- data.frame(X_bin$COVbin_summary,temp)
+   return(DV_q)
 }
 
 #' @title Find quantiles of the simulated data.

@@ -96,11 +96,8 @@ the average shifted histogram method. After calculating percentiles with
 bin-related or distance-related weights, draw the VPC type plot.
 }
 \examples{
-\donttest{
 data(origdata)
 data(simdata)
-asVPC(origdata,simdata,type="CI",N_hist=3,weight_method="distance",N_xbin=8)
-asVPC(origdata,simdata,type="CI",N_hist=3,weight_method="bin",N_xbin=8)
-}
-
+#asVPC(origdata,simdata,type="CI",N_hist=3,weight_method="distance",N_xbin=8)
+#asVPC(origdata,simdata,type="CI",N_hist=3,weight_method="bin",N_xbin=8)
 }
